@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: tilas-web-management
+
+
+  #mysql配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/tlias
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+
+#mybatis相关配置
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+#设置事务的日志，用于显示事务信息
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: DEBUG
+
+aliyun:
+  oss:
+    endpoint: https://oss-cn-beijing.aliyuncs.com
+    bucketName: nullpointer123
+    region: cn-beijing
+

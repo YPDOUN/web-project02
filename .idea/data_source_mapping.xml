@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/1e0c286b-3d4c-4a14-bc53-ee22da5b36ed/console.sql" value="1e0c286b-3d4c-4a14-bc53-ee22da5b36ed" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/1e0c286b-3d4c-4a14-bc53-ee22da5b36ed/console_1.sql" value="1e0c286b-3d4c-4a14-bc53-ee22da5b36ed" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/1e0c286b-3d4c-4a14-bc53-ee22da5b36ed/console_2.sql" value="1e0c286b-3d4c-4a14-bc53-ee22da5b36ed" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/1e0c286b-3d4c-4a14-bc53-ee22da5b36ed/console_3.sql" value="1e0c286b-3d4c-4a14-bc53-ee22da5b36ed" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/1e0c286b-3d4c-4a14-bc53-ee22da5b36ed/console_4.sql" value="1e0c286b-3d4c-4a14-bc53-ee22da5b36ed" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/1e0c286b-3d4c-4a14-bc53-ee22da5b36ed/console_5.sql" value="1e0c286b-3d4c-4a14-bc53-ee22da5b36ed" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/1e0c286b-3d4c-4a14-bc53-ee22da5b36ed/console_6.sql" value="1e0c286b-3d4c-4a14-bc53-ee22da5b36ed" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/1e0c286b-3d4c-4a14-bc53-ee22da5b36ed/console_7.sql" value="1e0c286b-3d4c-4a14-bc53-ee22da5b36ed" />
+    <file url="file://$PROJECT_DIR$/tilas-web-management/src/main/java/com/itheima/mapper/EmpMapper.java" value="1e0c286b-3d4c-4a14-bc53-ee22da5b36ed" />
+  </component>
+</project>

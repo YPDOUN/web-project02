@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itheima.mapper.EmpExprMapper">
+    <!-- 在这里添加SQL映射 -->
+
+    <insert id="addEmpDetails">
+        insert into emp_expr(emp_id, begin, end, company, job) values 
+        <foreach collection="exprList" item="expr" separator=",">
+            (#{expr.empId}, #{expr.begin}, #{expr.end}, #{expr.company}, #{expr.job})
+        </foreach>
+    </insert>
+
+    <delete id="deleteEmpExpr">
+        delete from emp_expr
+        where emp_id in
+        <foreach collection="empExprIds" item="id" open="(" separator="," close=")">
+            <if test="id != null">
+                #{id}
+            </if>
+        </foreach>
+    </delete>
+
+</mapper>

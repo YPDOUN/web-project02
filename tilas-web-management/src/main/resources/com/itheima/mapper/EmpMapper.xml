@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itheima.mapper.EmpMapper">
+    <!--<set>标签的作用：1.会自动生成set关键字 2.会删除多余的逗号，最后一个条件不满足会产生逗号-->
+    <update id="updateEmp">
+        update emp
+        <set>
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="gender != null and gender != ''">gender = #{gender},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="job != null">job = #{job},</if>
+            <if test="salary != null">salary = #{salary},</if>
+            <if test="image != null and image != ''">image = #{image},</if>
+            <if test="entryDate != null">entry_date = #{entryDate},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <select id="findEmp" resultType="com.itheima.pojo.Emp">
+        select e.*,  d.name as deptName from emp e left join dept d on e.dept_id = d.id
+        <where>
+            <if test="name != null and name != ''">
+                e.name like concat('%', #{name}, '%')
+            </if>
+
+            <if test="gender != null">
+                and e.gender = #{gender}
+            </if>
+
+            <if test="begin != null and end != null">
+                and e.entry_date between #{begin} and #{end}
+            </if>
+        </where>
+        order by e.update_time desc
+    </select>
+
+    <!--property表示Java对象的属性，column表示数据库表的列名。-->
+    <resultMap id="empResultMap" type="com.itheima.pojo.Emp">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="phone" column="phone"/>
+        <result property="job" column="job"/>
+        <result property="salary" column="salary"/>
+        <result property="image" column="image"/>
+        <result property="entryDate" column="entry_date"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deptName" column="dept_name"/>
+        <!--使用collection配置exprList字段映射-->
+        <collection property="exprList" ofType="com.itheima.pojo.EmpExpr">
+            <id property="id" column="id"/>
+            <result property="empId" column="emp_id"/>
+            <result property="begin" column="begin"/>
+            <result property="end" column="end"/>
+            <result property="company" column="company"/>
+            <result property="job" column="job"/>
+        </collection>
+    </resultMap>
+
+    <select id="findEmpById" resultMap="empResultMap">
+        select e.*, ee.* from emp e left join emp_expr ee on e.id = ee.emp_id
+        where e.id = #{id}
+    </select>
+
+
+    <select id="getEmpJobData" resultType="java.util.Map">
+        select
+            case job
+                when 1 then '班主任'
+                when 2 then '讲师'
+                when 3 then '学工主管'
+                when 4 then '教研主管'
+                when 5 then '咨询师'
+                else '其他'
+                end as pos,
+            count(*) as num from emp group by job
+    </select>
+
+    <!--查询员工性别统计数据，返回Map类型的结果集 -->
+    <!--if表达式： if(条件, true_value, false_value)-->
+    <select id="getEmpGenderData" resultType="java.util.Map">
+        select
+            if(gender = 1, '男性员工', '女性员工')as name,
+               count(*) as value
+        from emp group by gender;
+    </select>
+
+    <!--根据部门ID查询员工信息-->
+    <select id="findEmpByDeptId" resultType="java.lang.Integer">
+        select count(*) from emp where dept_id = #{deptId}
+    </select>
+
+    <!--查询学生学位数据，返回Map类型的结果集 -->
+    <select id="getStudentDegreeData" resultType="java.util.Map">
+        select case degree
+                   when 1 then '初中'
+                   when 2 then '高中'
+                   when 3 then '大专'
+                   when 4 then '本科'
+                   when 5 then '硕士'
+                   when 6 then '博士'
+                   else '未知' end as name
+             , count(*) as value
+        from student group by degree;
+    </select>
+
+    <!--查询学生总数-->
+    <select id="getStudentCountData" resultType="java.util.Map">
+        select c.name, count(s.id) as count from  clazz c left join student s on s.clazz_id = c.id
+        group by c.name;
+    </select>
+
+
+    <!--foreach中的collection属性是一个集合类型的参数，
+    item属性是集合中每个元素的变量名，
+    open、separator和close分别表示开始符号、分隔符和结束符号。-->
+    <delete id="deleteEmp">
+        delete from emp
+        where id in
+        <foreach collection="empIds" item="id" open="(" separator="," close=")">
+            <if test= "id != null">
+                #{id}
+            </if>
+        </foreach>
+    </delete>
+</mapper>
