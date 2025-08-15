@@ -36,7 +36,7 @@ public class JwtUtils {
      * @param jwt JWT令牌字符串
      * @return Claims 载荷数据
      */
-    public static Claims parseJwt(String jwt) {
+    public static Claims parseJwt(String jwt) throws Exception {
         return Jwts.parser()
                 .setSigningKey(SECRET_KEY) // 设置密钥用于解析
                 .parseClaimsJws(jwt) // 解析JWT字符串
