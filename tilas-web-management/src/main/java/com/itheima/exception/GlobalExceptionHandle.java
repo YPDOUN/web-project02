@@ -1,4 +1,4 @@
-package com.itheima.Exception;
+package com.itheima.exception;
 
 
 import com.itheima.pojo.Result;

@@ -51,5 +51,8 @@ public interface EmpMapper {
     List<Map> getStudentDegreeData();
 
     List<Map> getStudentCountData();
+
+    @Select("select id, username, name from emp where username = #{username} and password = #{password}")
+    Emp findByUsernameAndPassWord(String username, String password);
 }
 

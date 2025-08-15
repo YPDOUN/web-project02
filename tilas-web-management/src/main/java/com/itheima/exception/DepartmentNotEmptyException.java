@@ -1,4 +1,4 @@
-package com.itheima.Exception;
+package com.itheima.exception;
 
 public class DepartmentNotEmptyException extends RuntimeException {
 

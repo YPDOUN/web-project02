@@ -73,6 +73,7 @@ public class ClazzServiceImpl implements ClazzService {
     @Override
     public Clazz findClazzById(Integer id) {
         Clazz clazz = clazzMapper.findClazzById(id);
+
         return clazz;
     }
 
