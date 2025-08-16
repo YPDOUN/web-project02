@@ -28,7 +28,7 @@ public class DeptController {
      */
     //@RequestMapping(value = "/depts", method = RequestMethod.GET)
     @GetMapping
-    public Result list(){
+    public Result findAllyDept(){
         log.info("查询部门信息");
         List<Dept> list = deptService.findAllDepts();
         return Result.success(list);
@@ -43,7 +43,6 @@ public class DeptController {
 
     @PostMapping
     public Result insertDept(@RequestBody Dept dept) {
-        //System.out.println("新增：" + dept.getName());
         log.info("新增：{}", dept.getName());
         deptService.insertDept(dept);
         return Result.success();

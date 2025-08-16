@@ -5,15 +5,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@Aspect
+//@Aspect
 public class RecordTimeAspect {
 
-    //添加执行路径
-    @Around("execution(* com.itheima.service.impl.*.*(..))")
+    @Pointcut("execution(* com.itheima.service.impl.*.*(..))")
+    public void pt() {};
+
+    //添加路径
+    @Around("pt()")//*.*(..)表示所有类下所有方法
     public Object recordTime(ProceedingJoinPoint pjp) throws Throwable {
 
         //1.记录开始时间
