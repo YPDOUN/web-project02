@@ -1,17 +1,20 @@
 package com.itheima.interceptor;
 
+import com.itheima.utils.CurrentHolder;
 import com.itheima.utils.JwtUtils;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Component
 public class TokenInterceptor implements HandlerInterceptor {
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         //可在注册拦截器的类中配置
         /*//1.获取请求路径
         String requestPath = request.getRequestURI();
@@ -36,7 +39,13 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         //5.校验token是否有效，无效返回401
         try {
-            JwtUtils.parseJwt(token);
+            //解析令牌
+            Claims claims = JwtUtils.parseJwt(token);
+            Integer id = Integer.valueOf(claims.get("id").toString());
+
+            CurrentHolder.setCurrentId(id);
+            log.info("当前登录员工id：{}，已存入ThreadLocal", id);
+
         } catch (Exception e) {
             log.info("令牌无效");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -45,5 +54,10 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         log.info("令牌有效，放行");
         return true;
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        CurrentHolder.remove();
     }
 }
